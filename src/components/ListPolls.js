@@ -7,17 +7,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Routes } from "../routes";
 import pollService from "../services/poll.service";
+import userService from "../services/user.service";
+import authService from "../services/auth.service";
 
 
 export default (props) => {
     const [polls, setPolls] = useState([]);
+
+    const token = localStorage.getItem('token');
+    const userId = authService.currentUser(token);
 
     useEffect(() => {
         refreshPollsList();
     }, [])
 
     const refreshPollsList = () => {
-        pollService.getAllPolls()
+        userService.getUserCreatedPolls(userId)
             .then(response => {
                 setPolls(response.data);
             }).catch(err => {

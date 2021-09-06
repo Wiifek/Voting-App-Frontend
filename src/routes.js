@@ -47,5 +47,6 @@ export const Routes = {
     EditUser: { path: "/users/:id" },
     ListPolls: { path: "/polls" },
     AddPoll: { path: "/polls/create-poll" },
+    ViewPoll: { path: "/polls/view-poll/:id" },
     EditPoll: { path: "/polls/:id" },
 };

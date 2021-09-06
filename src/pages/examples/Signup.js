@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
@@ -14,15 +14,31 @@ import toastrService from "../../services/toastr.service";
 
 export default () => {
   let history = useHistory();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   
+  const [firstNameRequired, setFirstNameRequired] = useState(null);
+  const [lastNameRequired, setLastNameRequired] = useState(null);
   const [emailRequired, setEmailRequired] = useState(null);
   const [passwordRequired, setPasswordRequired] = useState(null);
   const [passwordConfirmationRequired, setPasswordConfirmationRequired] = useState(null);
 
   const isValidForm =()=>{
+    if (!firstName){
+      setFirstNameRequired('First name is required.')
+    }
+    else{
+      setFirstNameRequired(null)
+    }
+    if (!lastName){
+      setLastNameRequired('Last name is required.')
+    }
+    else{
+      setLastNameRequired(null)
+    }
     if (!email){
       setEmailRequired('Email address is required.')
     }
@@ -44,7 +60,7 @@ export default () => {
     else{
       setPasswordConfirmationRequired(null)
     }
-    if(email && password && passwordConfirmation && password === passwordConfirmation){
+    if(firstName && lastName && email && password && passwordConfirmation && password === passwordConfirmation){
       return true
     }
     else return false
@@ -53,7 +69,7 @@ export default () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (isValidForm()){
-    authService.register({ email, password })
+    authService.register({ firstName, lastName, email, password })
       .then(response => {
         toastrService.showSuccessMessage("Please sign in", `Sign up successfully`)
         localStorage.setItem('token', response.data.token);
@@ -75,6 +91,26 @@ export default () => {
                   <h3 className="mb-0">Create an account</h3>
                 </div>
                 <Form className="mt-4" onSubmit={submitHandler}>
+                <Form.Group id="firstName" className="mb-4">
+                    <Form.Label>Your First Name</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                      </InputGroup.Text>
+                      <Form.Control autoFocus type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First Name" />
+                      <div className="text-start w-100 d-block invalid-feedback">{firstNameRequired}</div>
+                    </InputGroup>
+                  </Form.Group>
+                  <Form.Group id="lastName" className="mb-4">
+                    <Form.Label>Your Last Name</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                      </InputGroup.Text>
+                      <Form.Control type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last Name" />
+                      <div className="text-start w-100 d-block invalid-feedback">{lastNameRequired}</div>
+                    </InputGroup>
+                  </Form.Group>
                   <Form.Group id="email" className="mb-4">
                     <Form.Label>Your Email</Form.Label>
                     <InputGroup>

@@ -4,9 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Breadcrumb } from '@themesberg/react-bootstrap';
 
-import { PageTrafficTable, RankingTable } from "../../components/Tables";
-
-
 export default () => {
   return (
     <>
@@ -23,9 +20,6 @@ export default () => {
           </p>
         </div>
       </div>
-
-      <PageTrafficTable />
-      <RankingTable />
     </>
   );
 };

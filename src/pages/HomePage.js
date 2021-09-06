@@ -51,6 +51,7 @@ import EditUser from '../components/EditUser';
 import EditPoll from '../components/EditPoll';
 import AddPoll from '../components/AddPoll';
 import ListPolls from '../components/ListPolls';
+import ViewPoll from '../components/ViewPoll';
 
 const RouteWithLoader = ({ component: Component, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
@@ -148,6 +149,7 @@ export default () => (
     <RouteWithSidebar exact path={Routes.EditUser.path} component={EditUser} />
     <RouteWithSidebar exact path={Routes.ListPolls.path} component={ListPolls} />
     <RouteWithSidebar exact path={Routes.AddPoll.path} component={AddPoll} />
+    <RouteWithSidebar exact path={Routes.ViewPoll.path} component={ViewPoll} />
     <RouteWithSidebar exact path={Routes.EditPoll.path} component={EditPoll} />
 
     <Redirect to={Routes.NotFound.path} />

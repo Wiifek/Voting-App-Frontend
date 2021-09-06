@@ -99,9 +99,9 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="Volt React" link={Routes.DashboardOverview.path} image={ReactHero} />
+              <NavItem title="Voting App" link={Routes.DashboardOverview.path} image={ReactHero} />
 
-              <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
+              
               <NavItem title="Users" icon={faUserCheck} link={Routes.ListUsers.path} />
               <NavItem title="Polls" icon={faPollH} link={Routes.ListPolls.path} />
 
