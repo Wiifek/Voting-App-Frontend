@@ -36,6 +36,7 @@ export default (props) => {
                 if (result.isConfirmed) {
                     pollService.deletePoll(id)
                         .then(response => {
+                            console.log(response);
                             refreshPollsList();
                         }).catch(err => {
                             console.log(err)

@@ -17,7 +17,7 @@ export default () => {
     const [percentage, setPercentage] = useState(null);
     const [yes, setYes] = useState(null);
     const [no, setNo] = useState(null);
-    const [VoteOption, setVoteOption] = useState(null);
+    const [vote, setVote] = useState(null);
 
     useEffect(() => {
         loadPoll();
@@ -44,13 +44,14 @@ export default () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-         userService.votePoll(userId, id,VoteOption)
-             .then(response => {
-                 toastrService.showSuccessMessage("The Vote has been saved successfully", `Vote Poll`);
-             }).catch(err => {
-                 toastrService.showErrorMessage("Failed to save your vote", `Vote Poll`);
-                 console.log(err)
-             });
+        userService.votePoll(userId, id, { vote })
+            .then(response => {
+                toastrService.showSuccessMessage("The Vote has been saved successfully", `Vote Poll`);
+                loadPoll();
+            }).catch(err => {
+                toastrService.showErrorMessage("Failed to save your vote", `Vote Poll`);
+                console.log(err)
+            });
     }
 
 
@@ -87,15 +88,21 @@ export default () => {
                                 <Row>
                                     <Col md={12} className="mb-3">
                                         <Form.Group id="Votes">
-                                            <Form.Label>Votes Percentage</Form.Label> {`  `}
-                                            <Form.Label>Yes : {percentage != 0 ? yes / percentage : "0"} % </Form.Label> {`  `}
-                                            <Form.Label>No : {percentage != 0 ? no / percentage : "0"} %</Form.Label>
+                                            <Form.Label>Votes Percentage</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Yes : {percentage != 0 ? ((yes / percentage) * 100).toFixed(2) : "0"} % </Form.Label> {`  `}
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Form.Label>No : {percentage != 0 ? ((no / percentage) * 100).toFixed(2) : "0"} %</Form.Label>
                                         </Form.Group>
                                     </Col>
                                 </Row>
                                 <div className="mt-3">
-                                    <Button variant="success" type="submit" onClick={e=>{setVoteOption("Yes")}}>Yes</Button> {`  `}
-                                    <Button variant="danger" type="submit" onClick={e=>{setVoteOption("No")}}>No</Button>
+                                    <Button variant="success" type="submit" onClick={e => { setVote("Yes") }}>Yes</Button> {`  `}
+                                    <Button variant="danger" type="submit" onClick={e => { setVote("No") }}>No</Button>
                                 </div>
                             </Form>
                         </Card.Body>
