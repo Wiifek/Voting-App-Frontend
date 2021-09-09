@@ -53,7 +53,7 @@ export default () => {
 
       <Row className="justify-content-md-center">
 
-        <Col xs={12} sm={6} xl={4} className="mb-4">
+        <Col xs={12} sm={6} xl={6} className="mb-4">
           <CounterWidget
             category="Created Polls"
             title={pollsNumber}
@@ -62,7 +62,7 @@ export default () => {
           />
         </Col>
 
-        <Col xs={12} sm={6} xl={4} className="mb-4">
+        <Col xs={12} sm={6} xl={6} className="mb-4">
           <CounterWidget
             category="Voted Polls"
             title={pollsVoted}
@@ -75,7 +75,7 @@ export default () => {
       <Row>
         <Col xs={12} xl={12} className="mb-4">
           <Row>
-            <Col xs={12} xl={8} className="mb-4">
+            <Col xs={12} xl={12} className="mb-4">
               <Row>
                 <Col xs={12} className="mb-4">
                   <Card border="light" className="shadow-sm mb-4">
@@ -96,9 +96,9 @@ export default () => {
                               <td>{index}</td>
                               <td>{poll.title}</td>
                               <td><FontAwesomeIcon icon={faThumbsUp} className={`text-success me-3`} />
-                               {poll.options[0].votes==0? `0`: poll.options[0].votes / (poll.options[0].votes + poll.options[1].votes)} % {`  `}
+                               {poll.options[0].votes==0? `0`: ((poll.options[0].votes / poll.voted.length)*100).toFixed(2)} % {`  `}
                                <FontAwesomeIcon icon={faThumbsDown} className={`text-danger me-3`} />
-                               {poll.options[1].votes==0? `0`: poll.options[1].votes / (poll.options[0].votes + poll.options[1].votes)} % </td>
+                               {poll.options[1].votes==0? `0`: ((poll.options[1].votes / poll.voted.length)*100).toFixed(2)} % </td>
                               <td><Button as={Link} to={`/polls/view-poll/${poll._id}`} variant="info">View</Button>
                               </td>
 
